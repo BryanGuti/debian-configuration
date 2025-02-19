@@ -17,11 +17,11 @@
 ```
 7. Clone the git repository for install and configuring tools
 ```shell
-   git clone <repository>
+   git clone https://github.com/BryanGuti/debian-configuration.git
 ```
 8. Go to cloned repository
 ```shell
-  cd <repository>
+  cd debian-configuration
 ```
 9. Install **Gnome**
 ```shell
