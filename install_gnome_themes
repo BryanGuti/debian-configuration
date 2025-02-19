@@ -6,12 +6,12 @@ function install_dracula_theme() {
 
   unzip master.zip -d ~/.local/share/themes
 
-  mv gtk-master Dracula
+  mv ~/.local/share/themes/{gtk-master,Dracula}
 
   # GTK-4 config
   mkdir -p ~/.config
 
-  cp -r ~/.local/share/themes/Dracula/assets/ ~/.config
+  cp -r ~/.local/share/themes/Dracula/assets ~/.config
 
   mkdir -p ~/.config/gtk-4.0
 
