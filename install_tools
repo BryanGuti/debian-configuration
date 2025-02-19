@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+function install_gnome() {
+  sudo apt-get install --no-install-recommends gnome-core
+  systemctl reboot
+  return 0
+}
+
+function install_all_tools() {
+  ./install_gnome_themes
+  ./install_gnome_icons
+  return 0
+}
+
+function main() {
+  local tools=(${@})
+  # echo "There are ${#} arguments"
+  if [[ " ${tools[@]} " =~ " all " ]]; then
+    if ! install_all_tools ; then return 1; fi
+    return 0;
+  fi
+
+  for tool in ${tools[@]}; do
+    case "${tool}" in
+      "gnome")
+        if ! install_gnome ; then return 1; fi
+      ;;
+      "gnome-themes")
+        if ! ./install_gnome_themes ; then return 1; fi
+      ;;
+      "gnome-icons")
+        if ! ./install_gnome_icons ; then return 1; fi
+      ;;
+      *)
+        echo "'${tool}' is not a tool for being installed" >&2 && continue
+      ;;
+    esac
+  done
+}
+
+main "${@}"

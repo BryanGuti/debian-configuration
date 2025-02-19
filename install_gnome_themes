@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+function install_dracula_theme() {
+
+  curl -OL https://github.com/dracula/gtk/archive/master.zip
+
+  unzip master.zip -d ~/.local/share/themes
+
+  mv gtk-master Dracula
+
+  # GTK-4 config
+  mkdir -p ~/.config
+
+  cp -r ~/.local/share/themes/Dracula/assets/ ~/.config
+
+  mkdir -p ~/.config/gtk-4.0
+
+  cp ~/.local/share/themes/Dracula/gtk-4.0/gtk.css ~/.config/gtk-4.0
+
+  cp ~/.local/share/themes/Dracula/gtk-4.0/gtk-dark.css ~/.config/gtk-4.0
+
+  rm master.zip
+
+  return 0
+}
+
+function install_dependencies() {
+  sudo apt-get install \
+  curl \
+  unzip
+
+  return 0
+}
+
+function main() {
+  install_dependencies || exit 1
+
+  # Create themes directory
+  mkdir -p ~/.local/share/themes
+
+  install_dracula_theme || exit 1
+
+  exit 0
+}
+
+main

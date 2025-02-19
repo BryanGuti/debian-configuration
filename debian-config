@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+#Dracula
+# gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+# gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+# gsettings set org.gnome.desktop.interface icon-theme "Dracula"
+
+function debian_install() {
+  if [[ "${#}" -eq 0 ]]; then
+    print_help install
+    return 0
+  elif [[ ! -f "install_tools" ]]; then
+    echo "The script for installing tools doesn't exist" >&2 && return 1
+  fi
+
+  local tools="${@}"
+
+  ./install_tools ${tools} && return 0
+}
+
+function debian_set() {
+  if [[ "${#}" -eq 0 ]]; then
+    print_help set
+    exit 0
+  fi
+  echo "Setting up..."
+  exit 0
+}
+
+function print_help() {
+  local command_help="${1}"
+
+  case "${command_help}" in
+    "install")
+      echo "Install help"
+    ;;
+    "set")
+      echo "Setting help"
+    ;;
+    *)
+      echo "Main help"
+    ;;
+  esac
+
+  exit 0
+}
+
+function main() {
+  if [[ "${#}" -eq 0 ]]; then
+    print_help
+    exit 0
+  fi
+
+  local command="${1}"
+  local arguments="${@:2}"
+
+  case "${command}" in
+    "install")
+      debian_install ${arguments} || exit 1
+    ;;
+    "set")
+      debian_set ${arguments} || exit 1
+    ;;
+    *)
+      print_help
+    ;;
+  esac
+
+  exit 0
+}
+
+main "${@}"
