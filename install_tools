@@ -14,7 +14,7 @@ function install_virtualbox() {
 }
 
 function install_snap() {
-  sudo apt-get install snapd
+  sudo apt-get install -y snapd
   sudo snap install snapd
 }
 
@@ -24,28 +24,28 @@ function install_bitwarden() {
 }
 
 function install_visual_studio_code() {
-  sudo apt-get install wget gpg pkexec
+  sudo apt-get install -y wget gpg pkexec
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
   sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
   echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
   rm -f packages.microsoft.gpg
 
-  sudp apt install apt-transport-https
+  sudp apt install -y apt-transport-https
   sudo apt update
-  sudo apt install code
+  sudo apt install -y code
 
 }
 
 function install_google_chrome() {
   curl -OL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-  sudo apt-get install ./google-chrome-stable_current_amd64.deb
+  sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
 
   rm google-chrome-stable_current_amd64.deb
 }
 
 function install_gnome() {
-  sudo apt-get install --no-install-recommends gnome-core
+  sudo apt-get install --no-install-recommends -y gnome-core
   systemctl reboot
   return 0
 }
